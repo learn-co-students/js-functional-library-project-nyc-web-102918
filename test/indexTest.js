@@ -5,75 +5,75 @@ describe('index.js', function () {
   const unmodifiedTestObj = {one: 1, two: 2, three: 3, four: 4}
 
 
-  describe('each', function () {
-    const alert = chai.spy();
-    const testArr = [1, 2, 3, 4]
-    const testObj = Object.assign({}, unmodifiedTestObj)
-    const spy = chai.spy(x => true)
-
-    it('calls alert with each element passed', function () {
-      fi.each(testArr, alert)
-      expect(alert).to.have.been.called.exactly(testArr.length)
-    })
-
-    it('calls alert properly on object values', function () {
-      fi.each(testObj, spy)
-      const objValues = Object.values(testObj)
-      objValues.forEach((val) => { expect(spy).to.have.been.called.with(val) })
-    })
-
-    it('returns the original collection', function () {
-      const result = fi.each(testObj, spy)
-      expect(testObj === result).to.equal(true)
-      expect(objectsEqual(testObj, result)).to.equal(true)
-    })
-  })
-
-  describe('map', function () {
-    const testArr = unmodifiedTestArr.slice()
-    const testObj = Object.assign({}, unmodifiedTestObj)
-    const callback = (x) => (x * 3)
-
-    const arrResult = fi.map(testArr, callback)
-
-    it('successfully returns a correctly populated array', function () {
-      expect(arraysEqual([3, 6, 9, 12], arrResult)).to.equal(true);
-    })
-
-    it('does not modify the original array', function () {
-      expect(arraysEqual(testArr, unmodifiedTestArr)).to.equal(true);
-    })
-
-    const objResult = fi.map(testObj, callback)
-
-    it('successfully returns a correctly populated array from modified object values', function () {
-      expect(arraysEqual([3, 6, 9, 12], objResult)).to.equal(true);
-    })
-
-    it('does not modify the original object', function () {
-      expect(objectsEqual(testObj, unmodifiedTestObj)).to.equal(true)
-    })
-  })
-
-  describe('reduce', function () {
-    const testArr = unmodifiedTestArr.slice() // arr is [1, 2, 3, 4]
-    const callback = (acc, val, collection) => (acc + (val * 3))
-    const reduceSansAcc = fi.reduce(testArr, callback)
-    const reduceWithAcc = fi.reduce(testArr, callback, 10)
-
-    it('returns the correct reduced value when passed an accumulator', function () {
-      expect(reduceWithAcc).to.equal(40)
-    })
-
-    it('returns the correct reduced value when not passed an accumulator', function () {
-      expect(reduceSansAcc).to.equal(30)
-    })
-
-    it('does not modify the original array', function () {
-      expect(arraysEqual(unmodifiedTestArr, testArr)).to.equal(true)
-    })
-
-  })
+  // describe('each', function () {
+  //   const alert = chai.spy();
+  //   const testArr = [1, 2, 3, 4]
+  //   const testObj = Object.assign({}, unmodifiedTestObj)
+  //   const spy = chai.spy(x => true)
+  //
+  //   it('calls alert with each element passed', function () {
+  //     fi.each(testArr, alert)
+  //     expect(alert).to.have.been.called.exactly(testArr.length)
+  //   })
+  //
+  //   it('calls alert properly on object values', function () {
+  //     fi.each(testObj, spy)
+  //     const objValues = Object.values(testObj)
+  //     objValues.forEach((val) => { expect(spy).to.have.been.called.with(val) })
+  //   })
+  //
+  //   it('returns the original collection', function () {
+  //     const result = fi.each(testObj, spy)
+  //     expect(testObj === result).to.equal(true)
+  //     expect(objectsEqual(testObj, result)).to.equal(true)
+  //   })
+  // })
+  //
+  // describe('map', function () {
+  //   const testArr = unmodifiedTestArr.slice()
+  //   const testObj = Object.assign({}, unmodifiedTestObj)
+  //   const callback = (x) => (x * 3)
+  //
+  //   const arrResult = fi.map(testArr, callback)
+  //
+  //   it('successfully returns a correctly populated array', function () {
+  //     expect(arraysEqual([3, 6, 9, 12], arrResult)).to.equal(true);
+  //   })
+  //
+  //   it('does not modify the original array', function () {
+  //     expect(arraysEqual(testArr, unmodifiedTestArr)).to.equal(true);
+  //   })
+  //
+  //   const objResult = fi.map(testObj, callback)
+  //
+  //   it('successfully returns a correctly populated array from modified object values', function () {
+  //     expect(arraysEqual([3, 6, 9, 12], objResult)).to.equal(true);
+  //   })
+  //
+  //   it('does not modify the original object', function () {
+  //     expect(objectsEqual(testObj, unmodifiedTestObj)).to.equal(true)
+  //   })
+  // })
+  //
+  // describe('reduce', function () {
+  //   const testArr = unmodifiedTestArr.slice() // arr is [1, 2, 3, 4]
+  //   const callback = (acc, val, collection) => (acc + (val * 3))
+  //   const reduceSansAcc = fi.reduce(testArr, callback)
+  //   const reduceWithAcc = fi.reduce(testArr, callback, 10)
+  //
+  //   it('returns the correct reduced value when passed an accumulator', function () {
+  //     expect(reduceWithAcc).to.equal(40)
+  //   })
+  //
+  //   it('returns the correct reduced value when not passed an accumulator', function () {
+  //     expect(reduceSansAcc).to.equal(30)
+  //   })
+  //
+  //   it('does not modify the original array', function () {
+  //     expect(arraysEqual(unmodifiedTestArr, testArr)).to.equal(true)
+  //   })
+  //
+  // })
 
   describe('find', function() {
     function findCBGenerator(target) {
